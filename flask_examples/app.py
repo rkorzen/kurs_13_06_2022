@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 
-from models import books
+from models import books, authors, Author
 from services import MathService
 
 app = Flask(__name__)
@@ -16,6 +16,7 @@ def hello():
         lista=[1, 2, 3],
         xxx="od czapy",
         flaga=False,
+        active="main",
 
     )
 
@@ -36,7 +37,6 @@ def maths(op, a, b):
 
 @app.route("/books/")  # /books/     /books/?query=Pan
 def books_list():
-
     q = request.args.get("query")
     books_list = books
     if q:
@@ -44,10 +44,35 @@ def books_list():
 
     return render_template(
         "list.html",
-        objects=books_list
-
+        objects=books_list,
+        active="books"
     )
 
+
+@app.route("/authors/")  # /authors/     or /authors/?query=Pan
+def authors_list():
+
+    q = request.args.get("query")
+    authors_list = authors
+    if q:
+        authors_list = [x for x in authors if x.name.startswith(q)]
+
+    return render_template(
+        "list.html",
+        objects=authors_list,
+        active="authors"
+    )
+
+@app.route("/authors/", methods=["POST"])
+def add_author():
+    print(request.args)
+    print(request.data)
+    print(request.form)
+    name = request.form.get('name')
+    lastname = request.form.get('lastname')
+    a = Author(name, lastname)
+    authors.append(a)
+    return "Dodano"
 
 "/maths/add/1/3/"
 "/maths/sub/1/3/"

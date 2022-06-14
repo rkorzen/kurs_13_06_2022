@@ -2,6 +2,22 @@
 
 
 {% block body %}
+
+<form>
+    <input type="text" name="query">
+    <input type="submit" class="btn" value="szukaj">
+</form>
+
+
+<form method="POST">
+    <label for="name">Imię</label>
+    <input type="text" name="name" placeholder="name..." id="name"><br>
+    <label for="lastname">Nazwisko</label>
+    <input type="text" name="lastname" placeholder="lastname..." id="lastname"><br>
+    <input type="submit" class="btn" value="dodaj">
+</form>
+
+
 {% for obj in objects %}
 {{ obj }}
 {% endfor %}}
