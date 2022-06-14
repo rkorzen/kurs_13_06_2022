@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+
+{{ tresc|title }}
+{{ lista }}
+{{ lista.1 }}
+
+<ul>
+    {% for el in lista %}
+        <li>{{el}}</li>
+    {% endfor %}
+</ul>
+
+{% for el in lista %}
+    {% if el == 2 %}
+
+        Dwójka jest w liście
+    {% endif %}
+
+{% endfor %}
+
+
+
+{% if flaga %}
+{{ xxx }}
+{% endif %}
+
+{% endblock %}
