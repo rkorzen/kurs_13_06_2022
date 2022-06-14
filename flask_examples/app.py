@@ -51,6 +51,13 @@ def books_list():
 
 @app.route("/authors/")  # /authors/     or /authors/?query=Pan
 def authors_list():
+    form = """<form method="POST">
+    <label for="name">Imię</label>
+    <input type="text" name="name" placeholder="name..." id="name"><br>
+    <label for="lastname">Nazwisko</label>
+    <input type="text" name="lastname" placeholder="lastname..." id="lastname"><br>
+    <input type="submit" class="btn" value="dodaj">
+    </form>"""
 
     q = request.args.get("query")
     authors_list = authors
@@ -60,7 +67,8 @@ def authors_list():
     return render_template(
         "list.html",
         objects=authors_list,
-        active="authors"
+        active="authors",
+        form=form
     )
 
 @app.route("/authors/", methods=["POST"])

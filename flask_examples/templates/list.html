@@ -9,16 +9,10 @@
 </form>
 
 
-<form method="POST">
-    <label for="name">Imię</label>
-    <input type="text" name="name" placeholder="name..." id="name"><br>
-    <label for="lastname">Nazwisko</label>
-    <input type="text" name="lastname" placeholder="lastname..." id="lastname"><br>
-    <input type="submit" class="btn" value="dodaj">
-</form>
+{{ form|safe}}
 
 
 {% for obj in objects %}
 {{ obj }}
-{% endfor %}}
+{% endfor %}
 {% endblock %}
