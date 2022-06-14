@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 
-from models import books, authors, Author
+from models import books, authors, Author, Book
 from services import MathService
 
 app = Flask(__name__)
@@ -35,18 +35,36 @@ def maths(op, a, b):
     )
 
 
-@app.route("/books/")  # /books/     /books/?query=Pan
+@app.route("/books/", methods=["GET", "POST"])  # /books/     /books/?query=Pan
 def books_list():
-    q = request.args.get("query")
-    books_list = books
-    if q:
-        books_list = [x for x in books_list if x.title.startswith(q)]
+    if request.method == "GET":
+        form = """<form method="POST">
+        <label for="title">Tytuł</label>
+        <input type="text" name="title" placeholder="title..." id="title"><br>
+        <label for="content">Opis</label>
+        <input type="text" name="content" placeholder="opis..." id="content"><br>
+        <label for="author">Author</label>
+        <input type="text" name="author" placeholder="author..." id="author"><br>
+        <input type="submit" class="btn" value="dodaj">
+        </form>"""
 
-    return render_template(
-        "list.html",
-        objects=books_list,
-        active="books"
-    )
+        q = request.args.get("query")
+        books_list = books
+        if q:
+            books_list = [x for x in books_list if x.title.startswith(q)]
+
+        return render_template(
+            "list.html",
+            objects=books_list,
+            active="books",
+            form=form
+        )
+    elif request.method == "POST":
+
+        book = Book(title, content, author)
+        books.append(book)
+        return "Dodane "
+
 
 
 @app.route("/authors/")  # /authors/     or /authors/?query=Pan
